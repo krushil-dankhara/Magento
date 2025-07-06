@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+	<acl>
+		<resources>
+			<resource id="Magento_Backend::admin">
+				<resource id="Caliente_Itech::Popup" title="Popup" sortOrder="10">
+					<resource id="Caliente_Itech::Popup_save" title="Save Popup" sortOrder="10"/>
+					<resource id="Caliente_Itech::Popup_delete" title="Delete Popup" sortOrder="20"/>
+					<resource id="Caliente_Itech::Popup_update" title="Update Popup" sortOrder="30"/>
+					<resource id="Caliente_Itech::Popup_view" title="View Popup" sortOrder="40"/>
+				</resource>
+			</resource>
+		</resources>
+	</acl>
+</config>

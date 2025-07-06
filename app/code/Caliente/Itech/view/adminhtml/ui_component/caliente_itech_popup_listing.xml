@@ -1,0 +1,85 @@
+<?xml version="1.0" ?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+	<argument name="data" xsi:type="array">
+		<item name="js_config" xsi:type="array">
+			<item name="provider" xsi:type="string">caliente_itech_popup_listing.caliente_itech_popup_listing_data_source</item>
+		</item>
+	</argument>
+	<settings>
+		<spinner>caliente_itech_popup_columns</spinner>
+		<deps>
+			<dep>caliente_itech_popup_listing.caliente_itech_popup_listing_data_source</dep>
+		</deps>
+	</settings>
+	<dataSource name="caliente_itech_popup_listing_data_source" component="Magento_Ui/js/grid/provider">
+		<settings>
+			<storageConfig>
+				<param name="indexField" xsi:type="string">popup_id</param>
+			</storageConfig>
+			<updateUrl path="mui/index/render"/>
+		</settings>
+		<aclResource>Caliente_Itech::Popup</aclResource>
+		<dataProvider name="caliente_itech_popup_listing_data_source" class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+			<settings>
+				<requestFieldName>id</requestFieldName>
+				<primaryFieldName>popup_id</primaryFieldName>
+			</settings>
+		</dataProvider>
+	</dataSource>
+	<listingToolbar name="listing_top">
+		<settings>
+			<sticky>true</sticky>
+		</settings>
+		<bookmark name="bookmarks"/>
+		<columnsControls name="columns_controls"/>
+		<filters name="listing_filters"/>
+		<paging name="listing_paging"/>
+	</listingToolbar>
+	<massaction name="listing_massaction" component="Magento_Ui/js/grid/tree-massactions">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="selectProvider" xsi:type="string">caliente_itech_popup_listing.caliente_itech_popup_listing.caliente_itech_popup_columns.ids</item>
+                <item name="indexField" xsi:type="string">popup_id</item>
+            </item>
+        </argument>
+        <action name="delete">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="type" xsi:type="string">delete</item>
+                    <item name="label" xsi:type="string" translate="true">Delete</item>
+                    <item name="url" xsi:type="url" path="caliente_itech/popup/massDelete"/>
+                    <item name="confirm" xsi:type="array">
+                        <item name="title" xsi:type="string" translate="true">Delete records</item>
+                        <item name="message" xsi:type="string" translate="true">Are you sure you wan't to delete selected records?</item>
+                    </item>
+                </item>
+            </argument>
+        </action>
+    </massaction>
+	<columns name="caliente_itech_popup_columns">
+		<selectionsColumn name="ids">
+			<settings>
+				<indexField>popup_id</indexField>
+			</settings>
+		</selectionsColumn>
+		<column name="popup_id">
+			<settings>
+				<filter>text</filter>
+				<sorting>asc</sorting>
+				<label translate="true">ID</label>
+			</settings>
+		</column>
+		<column name="email">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Email</label>
+			</settings>
+		</column>
+		<column name="created_at">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Created At</label>
+			</settings>
+		</column>
+	</columns>
+</listing>

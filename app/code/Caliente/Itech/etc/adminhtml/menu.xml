@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+	<menu>
+		<add id="Caliente::top_level" title="Caliente" module="Caliente_Itech" sortOrder="9999" resource="Magento_Backend::content"/>
+		<add id="Caliente_Itech::caliente_itech_popup" title="Popup" module="Caliente_Itech" sortOrder="9999" resource="Magento_Backend::content" parent="Caliente::top_level" action="caliente_itech/popup/index"/>
+	</menu>
+</config>

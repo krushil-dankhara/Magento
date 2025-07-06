@@ -1,0 +1,97 @@
+<?php
+
+use Caliente\Itech\Block\Popup;
+use Magento\Framework\Escaper;
+
+/** @var Popup $block */
+/** @var Escaper $escaper */
+?>
+<form action="<?= $escaper->escapeUrl($block->getFormAction())?>" 
+      method="post" 
+      id="popup-form"
+      class="popup-form"
+      data-mage-init='{"validation":{}}'
+      style="display:none;">
+
+    <?= $block->getBlockHtml('formkey') ?>
+
+    <fieldset class="fieldset popup-fieldset" data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>">
+        <div class="field popup-field-email required">
+            <label for="popup_email" class="label">
+                <span>
+                    <?= $escaper->escapeHtml(__('Email')) ?>
+                </span>
+            </label>
+            <div class="control">
+                <input type="text" 
+                        name="email" 
+                        id="popup_email" 
+                        class="input-text" 
+                        placeholder="Enter your email address"
+                        data-validate="{'validate-email':true, 'required':true}"/>
+            </div>
+        </div>
+    </fieldset> 
+    <div class="actions-toolbar popup-form-actions">
+        <div class="primary actions-primary">
+            <button type="submit" class="action submit primary">
+                <span>
+                    <?= $escaper->escapeHtml(__('Submit')) ?>
+                </span>
+            </button>
+        </div>
+    </div>
+</form>
+
+<script>
+    require([
+    'jquery',
+    'Magento_Ui/js/modal/modal',
+    'mage/cookies'
+    ], function ($, modal) {
+        'use strict';
+        if (!$.cookie('popup_shown')) {
+            setTimeout(function(){
+                var options = {
+                    modalClass: 'form-popup',
+                    type: 'popup',
+                    responsive: true,
+                    innerScroll: true,
+                    modalClass: 'popup-subscribe',
+                    buttons: [{
+                        text: $.mage.__('Close'),
+                        class: 'action secondary',
+                        click: function () {
+                            this.closeModal();
+                            $.cookie('popup_shown', '1', { expires: 1, path: '/' });
+                        }
+                    }]
+                };
+
+                var popup = modal(options, $('.popup-form'));
+                $('.popup-form').modal('openModal');
+                $('.action-close').on('click', function(){
+                    $.cookie('popup_shown', '1', { expires: 1, path: '/' });
+                });
+                $('body').on('submit', '#popup-form', function(e){
+                    e.preventDefault();
+                    var email = $('#popup_email').val();
+
+                    if (email) {
+                        $.ajax({
+                            url: '<?= $block->getFormAction() ?>',
+                            type: 'POST',
+                            data: {email: email},
+                            success: function(response){
+                                if (response.success) {
+                                    $('.popup-form').modal('closeModal');
+                                    $.cookie('popup_shown', '1', { expires: 1, path: '/' });
+                                }
+                            }
+                        });
+                    }
+                });
+            }, 3000);
+        }
+    });
+</script>
